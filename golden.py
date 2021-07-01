@@ -7,11 +7,13 @@ window = turtle.Screen()
 window.screensize(1920,1080)
 rr = 1920/1080
 window.setup(width=1.0, height=1.0, startx=None, starty=None)
-turtle.colormode(255)
-turtle.bgcolor('black')
-turtle.hideturtle()
-turtle.color('green')
-turtle.tracer(3, 0)
+
+def settings(t):
+   t.colormode(255)
+   t.bgcolor('black')
+   t.hideturtle()
+   t.color('green')
+   t.tracer(2, 0)
 #time.sleep(5)
 
 def go(t, x, y):
@@ -65,26 +67,6 @@ def goldenFibBlock(t, max_length, min_length, n, theta):
       fibBlock(t, max_length, min_length)
       t.left(angle*i)
 
-def square(t, side_length):
-   
-   for _ in range(4):
-      t.forward(side_length)
-      t.left(90)
-
-def goldenSquare(t, side_length, n):
-   angle = 3
-   side = side_length
-   for i in range(n):
-      t.color((random.randint(0,n), random.randint(0,n), random.randint(0,n)))
-      goHome(t)
-      side = side*0.95
-      side_bar = math.sqrt(side**2/2)
-      x =  -math.cos(math.pi/4 + i*math.pi*angle/180)*side_bar
-      y =  -math.sin(math.pi/4 + i*math.pi*angle/180)*side_bar
-      go(t, x, y)  
-      t.left(angle*i)
-      square(t, side)
-
 def shape(t, n, radius, rad ,offset):
    
    cords = []
@@ -102,30 +84,35 @@ def shape(t, n, radius, rad ,offset):
       t.dot(5)
    t.setpos(cords[0])
 
-def universal(t, n, a):   
+def universal(t, radius, n, a):   
    # N number of points 
    # angle between each dot 
    rad = 2*math.pi/n
    offset = math.pi/2
-   radius = 700
    
-   for i in range(100):
+   
+   for i in range(LOOP):
       t.left(a*i)
+      fade(t, radius)
       shape(t, n, radius, rad, offset+a*i*math.pi/180)
-      radius = radius*0.98
+      radius = radius*0.995
       goHome(t)
 
-if __name__ == "__main__":
+def fade(t, radius):
+   # MUST MATCH RADIUS 
+   r = abs(255-int(radius/7)*4)
+   t.color(125, r, r)
    
-   # goldenFibBlock(turtle, 800, 10, 170, 3)
+
+if __name__ == "__main__":
+   LOOP = 500
    # goldenTriangle(turtle, 1000, 100)
    # goldenSquare(turtle, 1300, 100)
-   
-   for i in range(2, 20):
-      universal(turtle, i, 1) # turtle, shape, degree ofset
+   radius = 500
+   for i in range(2, 7):
+      settings(turtle)
+      universal(turtle, radius, i, 1) # turtle, shape, degree ofset
       time.sleep(1)
-      window.reset()
-      turtle.hideturtle()
-      turtle.color('green')
-      turtle.tracer(3, 0)
+      window.clearscreen()
+      
 
