@@ -100,19 +100,23 @@ def universal(t, radius, n, a):
 
 def fade(t, radius):
    # MUST MATCH RADIUS 
-   r = abs(255-int(radius/7)*4)
-   t.color(125, r, r)
+   R = 300
+   f = 1
+   shift = 90
+   c = int(127.5*math.sin(radius*2*f*math.pi/R-shift*math.pi/180)+127.5)
+   t.color(c, c, c)
    
 
 if __name__ == "__main__":
    LOOP = 500
    # goldenTriangle(turtle, 1000, 100)
    # goldenSquare(turtle, 1300, 100)
-   radius = 500
-   for i in range(2, 7):
+   radius = 300
+   settings(turtle)
+   for i in range(1,5):
       settings(turtle)
-      universal(turtle, radius, i, 1) # turtle, shape, degree ofset
-      time.sleep(1)
+      universal(turtle, radius, i, 0.05) # turtle, shape, degree ofset
+      time.sleep(0.5)
       window.clearscreen()
       
 
