@@ -101,10 +101,21 @@ def universal(t, radius, n, a):
 def fade(t, radius):
    # MUST MATCH RADIUS 
    R = 300
-   f = 1
-   shift = 90
-   c = int(127.5*math.sin(radius*2*f*math.pi/R-shift*math.pi/180)+127.5)
-   t.color(c, c, c)
+   f0 = 1
+   f1 = 1
+   f2 = 1
+   shift0 = 120
+   shift1 = 240
+   shift2 = 360
+   # Playing around with the amplitude changes the range of rgb values you can use making the colours brighter/dimmer
+   amplitude = 50
+   # Set the center point and make sure your amplitude is always positive
+   offset = 255/2
+   c0 = int(0.5*amplitude*math.sin(radius*2*f0*math.pi/R-shift0*math.pi/180)+0.5*offset)
+   c1 = int(0.5*amplitude*math.sin(radius*2*f1*math.pi/R-shift1*math.pi/180)+0.5*offset)
+   c2 = int(0.5*amplitude*math.sin(radius*2*f2*math.pi/R-shift2*math.pi/180)+0.5*offset)
+   t.color(c0, c1, c2)
+   t.pensize(7*1.618*radius/R)
    
 
 if __name__ == "__main__":
